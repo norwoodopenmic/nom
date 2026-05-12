@@ -2,7 +2,9 @@
 
 ![Norwood Open Mic Gravatar](https://www.gravatar.com/avatar/adcda19cd81818cf19d8e45caa96682b)
 
-The Norwood Open Mic will be an opportunity for people to share a personal story or original poetry, prose, music and/or comedy in a radically supportive environment. 
+The Norwood Open Mic will be an opportunity for people to share a personal story, original poem, original short story, original song, original drawing painting (you will need to talk about it) or original comedy routine in a radically supportive environment. It can literally be anything as long as it was created by the performer. 
+
+The purpose of this open-mic is to create IRL human connection. The performer should be sharing a vulnerable part of themselves and the audiende should be sharing in the experience with love and support. 
 
 If you have a moment please fill out this survey to let me know if you are interested in this event. 
 
