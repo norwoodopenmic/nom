@@ -4,9 +4,9 @@
 
 Side Door Cafe - September 20th 2026
 
-The Norwood Open Mic will be an opportunity for people to share a personal story, original poem, original short story, original song, original drawing or painting (you will need to talk about it) or original comedy routine in a radically supportive environment. It can literally be anything as long as it was created by the performer. 
+The Norwood Open Mic will be an opportunity for people to share a personal story, original poem, original song or cover song in a radically supportive environment.  
 
-The purpose of this open-mic is to create IRL human connection. The performer should be sharing a vulnerable part of themselves and the audience should be radically supportive. 
+A goal of this open mic is to create connection among the people present at the open mic. 
 
 If you have a moment please fill out this survey to let me know if you are interested in this event. 
 
