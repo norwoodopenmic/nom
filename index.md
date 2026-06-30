@@ -2,7 +2,7 @@
 
 ![Norwood Open Mic Gravatar](https://www.gravatar.com/avatar/adcda19cd81818cf19d8e45caa96682b)
 
-Side Door Cafe - September 20th 2026
+SideDoor Cafe - September 20th 2026
 
 The Norwood Open Mic will be an opportunity for people to share a personal story, original poem, original song or cover song in a radically supportive environment.  
 
