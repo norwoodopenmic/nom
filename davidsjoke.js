@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const output = document.getElementById('output');
 
     button.addEventListener('click', () => {
-        output.textContent = "Hello, World! 🚀 (Executed in browser)";
-        alert("Hello World! Your JavaScript file loaded successfully.");
+        output.textContent = "I am muffin without you! Badum tis! 🥁🧁🥰 ";
+
     });
 });
