@@ -1,0 +1,14 @@
+// Wait for the DOM content to load fully
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Log to the browser's developer console
+    console.log("Hello, World! JavaScript is running live on GitHub Pages.");
+
+    // 2. Add an interactive click listener to the button
+    const button = document.getElementById('demoBtn');
+    const output = document.getElementById('output');
+
+    button.addEventListener('click', () => {
+        output.textContent = "Hello, World! 🚀 (Executed in browser)";
+        alert("Hello World! Your JavaScript file loaded successfully.");
+    });
+});
