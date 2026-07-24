@@ -30,10 +30,12 @@ By linking every task back to me through things like Logan or Work I am maintain
 8. every mindmap node is text inside of an oval
 9. the mindmap ui is written in javascript and html
 10. the mindmap is mostly just a series of interconnected ovals with text
-11. if a node is double-clicked on then an empty fresh node appears and allows for naming of the node
+11. if a node is triple clicked on then an empty fresh node appears and allows for naming of the node
 12. when a node is added it most always be further from David than the node that it came from
 13. assume that 4 nodes outward in the work direction will be added immediately so the user should be able to add those without changing zoom or scrolling
 14. the lines between nodes should not be so long that a lot of space is wasted
+15. nodes should never overlap eachother
+16. double clicking a node allows you to edit the text of that node
 ****************************************
 
 ******* MINDMAP SCOPE *******
