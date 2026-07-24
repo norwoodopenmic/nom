@@ -1,0 +1,5 @@
+the github hosted mindmap will not persist data 
+the collab work hosted mindmap will persist data
+
+this is the github hosted mindmap 
+the ui that is developed for the github hosted mindmap will be the same ui for the collab work hosted mindmap
