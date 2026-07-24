@@ -35,6 +35,7 @@ By linking every task back to me through things like Logan or Work I am maintain
 13. the lines between nodes should not be so long that a lot of space is wasted
 14. nodes should never overlap eachother
 15. when you click a node, 3 options are displayed - rename node, add node, delete node
+16. adding a node should always be further outward
 ****************************************
 
 ******* MINDMAP SCOPE *******
