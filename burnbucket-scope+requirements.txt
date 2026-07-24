@@ -1,1 +1,37 @@
+******* WHY BURNBUCKET *********
+this is a side project that can give me joy and give solace to anyone who is suffering
+did you do something really bad? did someone do something really bad to you?
+are you ready to acknowledge it, accept it and release it?
+*****************************
 
+******* MINDMAP EXPLAINED *********
+Let's say I need to remember that I have work calls today at 10 AM, 11 AM and 2 PM.
+My mindmap would look like this:
+David  ->  Work -> Calls -> 10 AM -> 11 AM -> 2 PM
+
+At the start of each day I look at my work calendar and fill out my mind map for the day. 
+
+My mindmap might also  have something like
+David -> Logan -> Meds -> 8 AM
+
+By linking every task back to me through things like Logan or Work I am maintaing the connection of the task to me. Something I do that isn't good is that I can literally lose myself in a task, the mindmap helps me find my way back to me. 
+***********************************
+
+*********BURNBUCKET REQUIREMENTS**********
+1. every burnbucket should say "Welcome to David's Burn Bucket!"
+2. every burnbucket should say "did you do something really bad? did someone do something really bad to you?
+are you ready to acknowledge it, accept it and release it?"
+3. every burnbucket should say "did you know that merely naming your emotions can be therapautic in processsing them?"
+****************************************
+
+******* MINDMAP SCOPE *******
+There will be two instances of mindmap, one that is for personal use (single-user) and one that is a collaboration tool (multi-user)
+
+single-user mindmap
+1. hosted in github
+2. not persist data 
+
+multi-user mindmap 
+1. hosted internally in employer dc
+2. persists data in a db in employer dc 
+*******************************
