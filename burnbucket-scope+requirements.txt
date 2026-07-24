@@ -7,7 +7,7 @@ In real life you can write something down and burn it. In the computer you can w
 ***********************************
 
 *********BURNBUCKET REQUIREMENTS**********
-1. every burnbucket should say "Welcome to David's Burn Bucket!"
+1. every burnbucket should say "Welcome to David's /dev/null burn bucket!"
 2. every burnbucket should say "Did something bad happen to you?"
 "Are you ready to acknowledge it, accept it and release it?"
 3. every burnbucket should say "did you know that merely naming your emotions can be therapautic in processsing them?"
