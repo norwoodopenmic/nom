@@ -1,7 +1,14 @@
--github hosted mindmap scope-
-the github hosted mindmap will not persist data 
-the collab work hosted mindmap will persist data
-this is the github hosted mindmap 
-the ui that is developed for the github hosted mindmap will be the same ui for the collab work hosted mindmap
+-mindmap scopes-
+
+There will be two instances of mindmap, one that is for personal use (single-user) and one that is a collaboration tool (multi-user)
+
+single-user mindmap
+1. hosted in github
+2. not persist data 
+
+multi-user mindmap 
+1. hosted internally in employer dc
+2. persists data in a db in employer dc 
+
 
 -mindmap requirements-
