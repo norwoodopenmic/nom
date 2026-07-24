@@ -17,6 +17,7 @@ In real life you can write something down and burn it. In the computer you can w
 7. A box pops up that you can type into when that button is pressed
 8. the text you enter is put onto the screen in 50 point font inside of a rectangle
 9. you can click a button that says "burn it! send it to /dev/null!" and the box will go away and the text will be deleted
+10. create this in javascript and html
 ****************************************
 
 ******* BURNBUCKEET SCOPE *******
