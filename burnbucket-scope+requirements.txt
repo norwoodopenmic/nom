@@ -1,18 +1,9 @@
 ******* WHY BURNBUCKET *********
-this is a side project that can give me joy and possibly give solace to anyone who is suffering
+this is a side project that can possibly give solace to anyone who is suffering and is stuck and wants to move forward
 *****************************
 
-******* MINDMAP EXPLAINED *********
-Let's say I need to remember that I have work calls today at 10 AM, 11 AM and 2 PM.
-My mindmap would look like this:
-David  ->  Work -> Calls -> 10 AM -> 11 AM -> 2 PM
-
-At the start of each day I look at my work calendar and fill out my mind map for the day. 
-
-My mindmap might also  have something like
-David -> Logan -> Meds -> 8 AM
-
-By linking every task back to me through things like Logan or Work I am maintaing the connection of the task to me. Something I do that isn't good is that I can literally lose myself in a task, the mindmap helps me find my way back to me. 
+******* BURNBUCKET EXPLAINED *********
+In real life you can write something down and burn it. In the computer you can write something down and release the writing back into memory. 
 ***********************************
 
 *********BURNBUCKET REQUIREMENTS**********
@@ -22,16 +13,12 @@ are you ready to acknowledge it, accept it and release it?"
 3. every burnbucket should say "did you know that merely naming your emotions can be therapautic in processsing them?"
 4. every burnbucket should say "in the physical world we have Jackie's burn bucket, in the computer world we have David's /dev/null, in the computer world we can delete things and release them back to memory, once they are released to memory they will stay there until they are overwritten by the next time that address space needs to be reused."
 5. every burnbucket should say "this is a safe space, nothing you type here gets sent back to the server, it stays local to your machine. use this tool to acknowledge, accept and release."
+6. Create a button that says "I have something I need to acknowledge and accept and release"
+7. A box pops up that you can type into when that button is pressed
+8. the text you enter is put onto the screen in 50 point font inside of a rectangle
+9. you can click a button that says "burn it! send it to /dev/null!" and the box will go away and the text will be deleted
 ****************************************
 
-******* MINDMAP SCOPE *******
-There will be two instances of mindmap, one that is for personal use (single-user) and one that is a collaboration tool (multi-user)
-
-single-user mindmap
-1. hosted in github
-2. not persist data 
-
-multi-user mindmap 
-1. hosted internally in employer dc
-2. persists data in a db in employer dc 
+******* BURNBUCKEET SCOPE *******
+There will be one instances of burnbucket it is always local and always only for the individual
 *******************************
