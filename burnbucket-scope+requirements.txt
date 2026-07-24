@@ -21,6 +21,7 @@ By linking every task back to me through things like Logan or Work I am maintain
 are you ready to acknowledge it, accept it and release it?"
 3. every burnbucket should say "did you know that merely naming your emotions can be therapautic in processsing them?"
 4. every burnbucket should say "in the physical world we have Jackie's burn bucket, in the computer world we have David's /dev/null, in the computer world we can delete things and release them back to memory, once they are released to memory they will stay there until they are overwritten by the next time that address space needs to be reused."
+5. every burnbucket should say "this is a safe space, nothing you type here gets sent back to the server, it stays local to your machine. use this tool to acknowledge, accept and release."
 ****************************************
 
 ******* MINDMAP SCOPE *******
