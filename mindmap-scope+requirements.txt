@@ -17,8 +17,17 @@ My mindmap might also  have something like
 David -> Logan -> Meds -> 8 AM
 
 By linking every task back to me through things like Logan or Work I am maintaing the connection of the task to me. Something I do that isn't good is that I can literally lose myself in a task, the mindmap helps me find my way back to me. 
-
 ***********************************
+
+*********MINDMAP REQUIREMENTS**********
+1. every mindmap should have today's date at the top like this: Thursday, July 23rd 2026
+2. every mindmap should start with David in the center
+3. every mindmap should have a node to the right for UD
+4. every mindmap should have a node to the left for EM
+5. every mindmap should have a node to the bottom for LOGAN
+6. every mindmap should have a node to the top for WORK
+7. every mindmap should hae a node to the top for WELLBEING
+****************************************
 
 ******* MINDMAP SCOPE *******
 There will be two instances of mindmap, one that is for personal use (single-user) and one that is a collaboration tool (multi-user)
