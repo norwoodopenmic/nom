@@ -35,7 +35,7 @@ By linking every task back to me through things like Logan or Work I am maintain
 13. the lines between nodes should not be so long that a lot of space is wasted
 14. nodes should never overlap eachother
 15. when you click a node, 3 options are displayed - rename node, add node, delete node
-16. adding a node should always be further outward
+16. Adding a node should always be further outward, and it must stay visually aligned with the branch it came from — a child added to a node (e.g. WORK) should read as clearly part of that branch, not drift toward the center or another branch's direction. Concretely: when fanning out multiple siblings from the same parent, cap the angular rotation to roughly ±40° from the parent's own outward direction from David. Once that cap is reached, additional siblings should be pushed further outward (ringed farther out) rather than rotated past the cap.
 ****************************************
 
 ******* MINDMAP SCOPE *******
