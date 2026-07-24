@@ -18,6 +18,7 @@ In real life you can write something down and burn it. In the computer you can w
 8. the text you enter is put onto the screen in 50 point font inside of a rectangle
 9. you can click a button that says "burn it! send it to /dev/null!" and the box will go away and the text will be deleted
 10. create this in javascript and html
+11. every burnbucket should say "Did you know that trauma is not held in the brskm therefore you can't talk therapy your way out of it? Trauma is held in the body and healing can happen through ritual and or journaling. If you don't believe me look it up yourself. If you or someone you love has experienced trauma please help them get the healing they need. They should not suffer another day."
 ****************************************
 
 ******* BURNBUCKEET SCOPE *******
