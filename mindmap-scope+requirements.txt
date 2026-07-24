@@ -27,6 +27,10 @@ By linking every task back to me through things like Logan or Work I am maintain
 5. every mindmap should have a node to the bottom for LOGAN
 6. every mindmap should have a node to the top for WORK
 7. every mindmap should hae a node to the top for WELLBEING
+8. every mindmap node is text inside of an oval
+9. the mindmap ui is written in javascript and html
+10. the mindmap is mostly just a series of interconnected ovals with text
+11. if a node is double-clicked on then an empty fresh node appears and allows for naming of the node
 ****************************************
 
 ******* MINDMAP SCOPE *******
@@ -41,4 +45,3 @@ multi-user mindmap
 2. persists data in a db in employer dc 
 *******************************
 
--mindmap requirements-
