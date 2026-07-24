@@ -1,5 +1,12 @@
--mindmap scopes-
+******* WHY MINDMAP *********
 
+this is a side project that can give me joy
+making these mind maps have been very helpful to me for the last 2 weeks
+it seems like to do list are dumb and to do list are where tasks to go be forgotten
+the mindmap is grounding because every task links back to me eventually
+*****************************
+
+******* MINDMAP SCOPE *******
 There will be two instances of mindmap, one that is for personal use (single-user) and one that is a collaboration tool (multi-user)
 
 single-user mindmap
@@ -9,6 +16,6 @@ single-user mindmap
 multi-user mindmap 
 1. hosted internally in employer dc
 2. persists data in a db in employer dc 
-
+*******************************
 
 -mindmap requirements-
