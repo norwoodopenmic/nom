@@ -31,7 +31,7 @@ Cure cure, heal"
 13. Create a link to this video https://music.youtube.com/watch?v=mIf9expBou8&si=m8i-RUsQ2BaM_iPy the link text should say Kura Kura by Baptiste Sejourne & Kama Lila Sol
 14. display and center the image that is local to the htm and javascript named burnbucket-fm.jpeg
 15. the button to enter the trauma should be the first thing on the page
-16. when someone enters their trauma it should be written back into the page and from their it can be deleted and released
+16. when someone enters their trauma it should be written back into the page and from their it can be deleted and released, do not write it back to a pop up, actually create a box and put it back into the original page that had the button.
 ****************************************
 
 ******* BURNBUCKEET SCOPE *******
