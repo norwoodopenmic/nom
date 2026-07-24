@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>David's /dev/null Burn Bucket</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #181b21;
+    --panel-border: #2a2f3a;
+    --ember: #ff6b3d;
+    --ember-dim: #b4432a;
+    --ash: #cfd3da;
+    --ash-dim: #8b909c;
+    --text: #e8e9ec;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 40px 20px 80px;
+    background: radial-gradient(ellipse at top, #1a1d24 0%, #0f1115 60%);
+    color: var(--text);
+    font-family: 'Georgia', 'Iowan Old Style', serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .title {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 4px;
+    color: var(--ember);
+  }
+
+  .photo {
+    display: block;
+    margin: 24px auto;
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--panel-border);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  }
+
+  .messages {
+    max-width: 640px;
+    width: 100%;
+  }
+
+  .msg {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-left: 3px solid var(--ember-dim);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 14px 0;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ash);
+  }
+
+  .msg em {
+    color: var(--ash-dim);
+    font-style: italic;
+  }
+
+  .msg.quiet {
+    border-left-color: #3d4552;
+    font-size: 15px;
+    color: var(--ash-dim);
+  }
+
+  .song-link {
+    display: inline-block;
+    margin: 6px 0 18px;
+    color: var(--ember);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ember-dim);
+    font-size: 15px;
+  }
+  .song-link:hover { color: #ffb08c; }
+
+  .lyrics {
+    font-style: italic;
+    white-space: pre-line;
+    color: var(--ash-dim);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .cta-wrap {
+    margin: 40px 0 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  #openModalBtn {
+    background: linear-gradient(180deg, #ff8a5c, var(--ember));
+    color: #1a0e08;
+    border: none;
+    padding: 16px 28px;
+    font-size: 17px;
+    font-family: inherit;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(255,107,61,0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  #openModalBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(255,107,61,0.45);
+  }
+
+  .input-box {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    padding: 28px;
+    max-width: 640px;
+    width: 100%;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    margin: 0 0 30px;
+  }
+
+  .input-box h2 {
+    margin-top: 0;
+    color: var(--ember);
+    font-size: 20px;
+  }
+
+  .input-box p.helper {
+    color: var(--ash-dim);
+    font-size: 14px;
+    margin-top: -6px;
+  }
+
+  #textInput {
+    width: 100%;
+    min-height: 140px;
+    background: #0f1115;
+    color: var(--text);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 14px;
+    font-family: inherit;
+    font-size: 16px;
+    resize: vertical;
+  }
+
+  .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ash-dim);
+    border: 1px solid var(--panel-border);
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 15px;
+  }
+
+  .btn-place {
+    background: #2a2f3a;
+    color: var(--text);
+    border: 1px solid var(--panel-border);
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 15px;
+  }
+  .btn-place:hover { background: #343a47; }
+
+  /* notes written directly into the page */
+  #noteArea {
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .note-rect-inline {
+    background: #14151a;
+    border: 2px solid var(--ember-dim);
+    border-radius: 14px;
+    padding: 50px 40px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 0 60px rgba(255,107,61,0.15);
+    text-align: center;
+    margin: 0 0 30px;
+  }
+
+  .note-text-inline {
+    font-size: 50px;
+    line-height: 1.3;
+    color: var(--text);
+    font-family: 'Georgia', serif;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0 0 30px;
+  }
+
+  .burn-btn-inline {
+    background: linear-gradient(180deg, #ff6b3d, #b4432a);
+    color: #fff;
+    border: none;
+    padding: 16px 26px;
+    font-size: 17px;
+    font-family: inherit;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .burn-btn-inline:hover { filter: brightness(1.1); }
+
+  .burning {
+    animation: flicker 0.5s ease-in-out infinite alternate, riseAway 0.9s ease-in forwards 0.5s;
+  }
+
+  @keyframes flicker {
+    0% { text-shadow: 0 0 8px #ff6b3d, 0 0 2px #ffcc80; }
+    100% { text-shadow: 0 0 22px #ff2d00, 0 0 8px #ffb347; }
+  }
+
+  @keyframes riseAway {
+    0% { opacity: 1; transform: scale(1) translateY(0); }
+    100% { opacity: 0; transform: scale(0.85) translateY(-30px); filter: blur(4px); }
+  }
+
+  .footer-note {
+    max-width: 640px;
+    text-align: center;
+    color: var(--ash-dim);
+    font-size: 13px;
+    margin-top: 50px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+  <div class="title">Welcome to David's /dev/null burn bucket. 🪣😔🔥</div>
+
+  <div class="cta-wrap">
+    <button id="openModalBtn">I have something I need to acknowledge and accept and release</button>
+  </div>
+
+  <!-- Input box appears here, right where the button is, in the page flow -->
+  <div id="inputBox" class="input-box" style="display:none;">
+    <h2>Acknowledge it.</h2>
+    <p class="helper">Write whatever is true right now. No one else will see it.</p>
+    <textarea id="textInput" placeholder="Start writing..."></textarea>
+    <div class="modal-buttons">
+      <button class="btn-secondary" id="cancelBtn">Cancel</button>
+      <button class="btn-place" id="placeBtn">Place it in the bucket</button>
+    </div>
+  </div>
+
+  <div id="noteArea"></div>
+
+  <img class="photo" src="burnbucket-fm.jpeg" alt="Burn bucket" onerror="this.style.display='none'">
+
+  <div class="messages">
+
+    <div class="msg">
+      Did something bad happen to you?<br>
+      Are you ready to acknowledge it, accept it and release it?
+    </div>
+
+    <div class="msg">
+      Did you know that merely naming your emotions can be therapeutic in processing them?
+    </div>
+
+    <div class="msg">
+      In the physical world we have Jackie's burn bucket, in the computer world we have David's /dev/null. In the computer world we can delete things and release them back to memory — once they are released to memory they will stay there until they are overwritten by the next time that address space needs to be reused.
+    </div>
+
+    <div class="msg">
+      This is a safe space. Nothing you type here gets sent back to the server — it stays local to your machine. Use this tool to acknowledge, accept and release.
+    </div>
+
+    <div class="msg quiet">
+      Did you know that trauma is not held in the brain, so you can't talk therapy your way out of it? Trauma is held in the body, and healing can happen through ritual and/or journaling. If you don't believe me, look it up yourself. If you or someone you love has experienced trauma, please help them get the healing they need — they should not suffer another day.
+      <br><br>
+      <em>This is for a big single instance of trauma (PTSD), not 1000 little traumas (CPTSD).</em>
+    </div>
+
+    <div class="msg quiet">
+      My first or second day in treatment a certain clinician tried to do the burn bucket with me because another clinician was out dealing with some stuff. The clinician said write down something meaningful to you and burn it. I was like wait a second that doesn't sound right... so I wrote some beautiful processing down and then I kept it. I watched others burn their notes in the parking lot of Rockland.
+      <br><br>
+      Later on as the weeks went on the burn bucket exercise returned and I would write down like a word — I literally don't remember — and burn it, not a lot happened.
+      <br><br>
+      Many weeks later I had a very very hard conversation on the phone. It was incredibly upsetting, but I stayed still and I wrote the words of the painful call as a way of not dissociating while on the call. I later created my own burn bucket in my backyard using a cookie tin from a department store in London (Fortnum & Mason) that had previously held delicious cookies. I loaded earth into the cookie tin to weigh it down and took a lighter and lit the pieces of paper on fire and loaded them into the cookie tin burn bucket, and I burned the transcript of that call. What wasn't burned and remained, I buried in the butterfly garden directly above where Theodore's ashes are buried. b"h
+    </div>
+
+    <div class="msg quiet lyrics">Kura kura, sana cuerpesito
+Cure cure, heal little body
+Kura kura, sana espirituini
+Cure cure, heal little spirit
+Kura kura, sana corazón
+Cure cure, heal heart
+Kura kura, sana
+Cure cure, heal</div>
+
+    <div style="text-align:center;">
+      <a class="song-link" href="https://music.youtube.com/watch?v=mIf9expBou8&si=m8i-RUsQ2BaM_iPy" target="_blank" rel="noopener noreferrer">Kura Kura by Baptiste Sejourne & Kama Lila Sol</a>
+    </div>
+
+  </div>
+
+  <div class="footer-note">
+    Nothing typed into this page leaves your device. Closing or refreshing this tab also releases everything back to memory.
+  </div>
+
+<script>
+  const openModalBtn = document.getElementById('openModalBtn');
+  const inputBox = document.getElementById('inputBox');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const placeBtn = document.getElementById('placeBtn');
+  const textInput = document.getElementById('textInput');
+  const noteArea = document.getElementById('noteArea');
+
+  openModalBtn.addEventListener('click', () => {
+    textInput.value = '';
+    inputBox.style.display = 'block';
+    openModalBtn.style.display = 'none';
+    setTimeout(() => textInput.focus(), 50);
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    inputBox.style.display = 'none';
+    openModalBtn.style.display = 'inline-block';
+  });
+
+  placeBtn.addEventListener('click', () => {
+    const value = textInput.value.trim();
+    if (!value) return;
+
+    // Write the note directly into the page
+    const noteRect = document.createElement('div');
+    noteRect.className = 'note-rect-inline';
+
+    const noteText = document.createElement('p');
+    noteText.className = 'note-text-inline';
+    noteText.textContent = value;
+
+    const burnBtn = document.createElement('button');
+    burnBtn.className = 'burn-btn-inline';
+    burnBtn.textContent = 'burn it! send it to /dev/null!';
+    burnBtn.addEventListener('click', () => {
+      noteText.classList.add('burning');
+      burnBtn.disabled = true;
+      setTimeout(() => {
+        noteRect.remove();
+      }, 1500);
+    });
+
+    noteRect.appendChild(noteText);
+    noteRect.appendChild(burnBtn);
+    noteArea.appendChild(noteRect);
+
+    textInput.value = '';
+    inputBox.style.display = 'none';
+    openModalBtn.style.display = 'inline-block';
+    noteRect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  // Escape key cancels the open input box
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && inputBox.style.display === 'block') {
+      cancelBtn.click();
+    }
+  });
+</script>
+
+</body>
+</html>
