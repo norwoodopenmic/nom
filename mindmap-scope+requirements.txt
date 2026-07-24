@@ -32,6 +32,7 @@ By linking every task back to me through things like Logan or Work I am maintain
 10. the mindmap is mostly just a series of interconnected ovals with text
 11. if a node is double-clicked on then an empty fresh node appears and allows for naming of the node
 12. when a node is added it most always be further from David than the node that it came from
+13. assume that lots of nodes will be added so when the map is initialized it should have space for 4 more nodes without the user being required to change zoom or scroll
 ****************************************
 
 ******* MINDMAP SCOPE *******
