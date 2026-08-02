@@ -1,1 +1,671 @@
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>David's Mindmap</title>
+<style>
+  :root{
+    --bg: #0f1115;
+    --bg-grid: #171a21;
+    --ink: #eef1f6;
+    --muted: #8b91a1;
+    --panel: #1a1d25;
+    --panel-border: #2a2e3a;
+
+```
+--blue:   #3b82f6;
+--blue-ink:#eaf1ff;
+--green:  #22c55e;
+--green-ink:#eafff3;
+--red:    #ef4444;
+--red-ink:#fff0f0;
+--pink:   #ec4899;
+--pink-ink:#fff0f8;
+--yellow: #eab308;
+--yellow-ink:#2b2100;
+--purple: #a855f7;
+--purple-ink:#faf0ff;
+```
+
+}
+
+- { box-sizing: border-box; }
+  html, body {
+  margin:0; padding:0; width:100%; height:100%;
+  background: var(–bg);
+  font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Inter, Roboto, sans-serif;
+  overflow: hidden;
+  color: var(–ink);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
+  }
+
+#app { position: fixed; inset: 0; }
+
+#dateBar {
+position: absolute;
+top: 14px; left: 50%; transform: translateX(-50%);
+font-size: 14px;
+letter-spacing: 0.06em;
+color: var(–muted);
+font-weight: 600;
+text-transform: uppercase;
+z-index: 20;
+pointer-events: none;
+background: rgba(15,17,21,0.6);
+padding: 6px 14px;
+border-radius: 20px;
+backdrop-filter: blur(6px);
+}
+
+#canvasWrap {
+position: absolute; inset: 0;
+background-image:
+radial-gradient(circle at 1px 1px, #22262f 1px, transparent 0);
+background-size: 28px 28px;
+background-position: 0 0;
+}
+
+svg#mindmap {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+cursor: grab;
+}
+svg#mindmap.dragging { cursor: grabbing; }
+
+.edge {
+stroke: #3a3f4c;
+stroke-width: 2.5;
+fill: none;
+}
+
+.node-group { cursor: pointer; }
+.node-oval {
+stroke-width: 2.5;
+filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
+transition: filter 0.15s ease, stroke-width 0.15s ease;
+}
+.node-group:hover .node-oval {
+filter: drop-shadow(0 2px 14px rgba(0,0,0,0.55));
+stroke-width: 3.5;
+}
+.node-text {
+font-weight: 700;
+text-anchor: middle;
+dominant-baseline: middle;
+pointer-events: none;
+user-select: none;
+}
+
+/* — context menu — */
+#menu {
+position: absolute;
+z-index: 50;
+background: var(–panel);
+border: 1px solid var(–panel-border);
+border-radius: 12px;
+padding: 6px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+display: none;
+flex-direction: column;
+min-width: 168px;
+overflow: hidden;
+}
+#menu.open { display: flex; }
+#menu button {
+all: unset;
+box-sizing: border-box;
+width: 100%;
+padding: 10px 12px;
+font-size: 14px;
+color: var(–ink);
+border-radius: 8px;
+cursor: pointer;
+font-weight: 600;
+}
+#menu button:hover { background: #262a35; }
+#menu button.danger { color: #ff8080; }
+#menu .menu-label {
+padding: 8px 12px 4px;
+font-size: 11px;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: var(–muted);
+font-weight: 700;
+}
+#menu hr {
+border: none;
+border-top: 1px solid var(–panel-border);
+margin: 4px 0;
+}
+
+/* — prompt modal (rename / add) — */
+#modalOverlay {
+position: absolute; inset: 0;
+background: rgba(0,0,0,0.5);
+display: none;
+align-items: center;
+justify-content: center;
+z-index: 60;
+}
+#modalOverlay.open { display: flex; }
+#modalBox {
+background: var(–panel);
+border: 1px solid var(–panel-border);
+border-radius: 14px;
+padding: 18px;
+width: min(320px, 88vw);
+box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+#modalBox h3 {
+margin: 0 0 12px;
+font-size: 15px;
+color: var(–ink);
+}
+#modalBox input {
+all: unset;
+box-sizing: border-box;
+width: 100%;
+background: #10121a;
+border: 1px solid var(–panel-border);
+border-radius: 8px;
+padding: 10px 12px;
+color: var(–ink);
+font-size: 14px;
+margin-bottom: 14px;
+}
+#modalBox input:focus { border-color: #4a5066; }
+#modalActions { display: flex; gap: 8px; justify-content: flex-end; }
+#modalActions button {
+all: unset;
+padding: 8px 14px;
+border-radius: 8px;
+font-size: 13px;
+font-weight: 700;
+cursor: pointer;
+}
+#modalCancel { color: var(–muted); }
+#modalCancel:hover { color: var(–ink); }
+#modalConfirm { background: #3b6bf6; color: white; }
+#modalConfirm:hover { background: #2f5ce0; }
+
+/* — controls — */
+#controls {
+position: absolute;
+bottom: 16px; right: 16px;
+display: flex;
+flex-direction: column;
+gap: 8px;
+z-index: 20;
+}
+#controls button {
+all: unset;
+width: 40px; height: 40px;
+background: var(–panel);
+border: 1px solid var(–panel-border);
+border-radius: 10px;
+color: var(–ink);
+font-size: 18px;
+text-align: center;
+line-height: 40px;
+cursor: pointer;
+}
+#controls button:active { background: #262a35; }
+
+#hint {
+position: absolute;
+bottom: 16px; left: 16px;
+font-size: 11px;
+color: var(–muted);
+z-index: 20;
+background: rgba(15,17,21,0.6);
+padding: 6px 10px;
+border-radius: 8px;
+backdrop-filter: blur(6px);
+max-width: 200px;
+line-height: 1.4;
+}
+</style>
+
+</head>
+<body>
+<div id="app">
+  <div id="dateBar"></div>
+  <div id="canvasWrap">
+    <svg id="mindmap" xmlns="http://www.w3.org/2000/svg">
+      <g id="viewport">
+        <g id="edges"></g>
+        <g id="nodes"></g>
+      </g>
+    </svg>
+  </div>
+
+  <div id="menu">
+    <div class="menu-label" id="menuTitle">Node</div>
+    <button id="menuRename">✏️ Rename node</button>
+    <button id="menuAdd">➕ Add node</button>
+    <hr>
+    <button id="menuDelete" class="danger">🗑️ Delete node</button>
+  </div>
+
+  <div id="modalOverlay">
+    <div id="modalBox">
+      <h3 id="modalTitle">Rename node</h3>
+      <input id="modalInput" type="text" maxlength="40" placeholder="Node text">
+      <div id="modalActions">
+        <button id="modalCancel">Cancel</button>
+        <button id="modalConfirm">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="controls">
+    <button id="zoomIn" title="Zoom in">+</button>
+    <button id="zoomOut" title="Zoom out">−</button>
+    <button id="resetView" title="Reset view">⟲</button>
+  </div>
+
+  <div id="hint">Tap a node for options. Drag background to pan. Scroll / pinch to zoom.</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- Date header ----------
+  function formatDate(d){
+    const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const day = d.getDate();
+    const suffix = (n)=>{
+      if (n>=11 && n<=13) return "th";
+      switch(n%10){case 1:return "st";case 2:return "nd";case 3:return "rd";default:return "th";}
+    };
+    return `${days[d.getDay()]}, ${months[d.getMonth()]} ${day}${suffix(day)} ${d.getFullYear()}`;
+  }
+  document.getElementById('dateBar').textContent = formatDate(new Date());
+
+  // ---------- Color themes ----------
+  const THEMES = {
+    blue:   { fill:"#1a3a75", stroke:"#3b82f6", text:"#eaf1ff" },
+    green:  { fill:"#123f26", stroke:"#22c55e", text:"#eafff3" },
+    red:    { fill:"#4a1616", stroke:"#ef4444", text:"#fff0f0" },
+    pink:   { fill:"#4a1533", stroke:"#ec4899", text:"#fff0f8" },
+    yellow: { fill:"#4a3c05", stroke:"#eab308", text:"#fff7d6" },
+    purple: { fill:"#33145a", stroke:"#a855f7", text:"#faf0ff" }
+  };
+
+  // ---------- Data model ----------
+  // Each node: id, text, color(theme key), angle (radians, outward dir from David),
+  // ring (generation distance index), parentId, x, y, rx, ry
+  let nodes = {};
+  let nextId = 1;
+  const newId = () => "n" + (nextId++);
+
+  const RING_STEP = 175;   // radial distance between generations
+  const MAX_FAN = 40 * Math.PI/180; // cap ±40° from parent's own outward angle
+
+  function addNode({text, color, angle, ring, parentId}){
+    const id = newId();
+    nodes[id] = { id, text, color, angle, ring, parentId, children: [] };
+    if (parentId && nodes[parentId]) nodes[parentId].children.push(id);
+    return nodes[id];
+  }
+
+  // Root
+  const david = addNode({text:"DAVID", color:"blue", angle:0, ring:0, parentId:null});
+
+  // Primary branches — fixed directions
+  // angle convention: 0 = right(East), PI/2 = down(South), PI = left(West), -PI/2 = up(North) [SVG y-down]
+  const ud = addNode({text:"UD", color:"green", angle:0, ring:1, parentId:david.id});
+  const em = addNode({text:"EM", color:"red", angle:Math.PI, ring:1, parentId:david.id});
+  const logan = addNode({text:"LOGAN", color:"pink", angle:Math.PI/2, ring:1, parentId:david.id});
+  // WORK and WELLBEING both "top" -> offset symmetrically around North so both read as top,
+  // give WORK a bit more room to the north-east-ish since it needs 4 pre-added children,
+  // WELLBEING sits north-west-ish. Offset chosen so their fan cones (±40°) don't collide with
+  // each other or with UD/EM cones.
+  const work = addNode({text:"WORK", color:"yellow", angle:-Math.PI/2 + (28*Math.PI/180), ring:1, parentId:david.id});
+  const wellbeing = addNode({text:"WELLBEING", color:"purple", angle:-Math.PI/2 - (28*Math.PI/180), ring:1, parentId:david.id});
+
+  // Pre-add 4 WORK children so user can access without zoom/scroll changes.
+  // Fan them within the ±40° cap around WORK's own outward angle, ring 2.
+  (function seedWorkChildren(){
+    const parent = work;
+    const labels = ["Projects", "Meetings", "Deadlines", "Team"];
+    const n = labels.length;
+    // spread evenly across the cap, e.g. -40,-13.3,13.3,40 degrees roughly
+    const span = MAX_FAN * 2;
+    for (let i=0;i<n;i++){
+      const t = n === 1 ? 0.5 : i/(n-1);
+      const offset = -MAX_FAN + t*span;
+      addNode({
+        text: labels[i],
+        color: "yellow",
+        angle: parent.angle + offset,
+        ring: parent.ring + 1,
+        parentId: parent.id
+      });
+    }
+  })();
+
+  // ---------- Layout: convert polar (angle,ring) -> x,y ----------
+  function nodeXY(node){
+    const r = node.ring * RING_STEP;
+    return {
+      x: Math.cos(node.angle) * r,
+      y: Math.sin(node.angle) * r
+    };
+  }
+
+  // ---------- Oval sizing based on text ----------
+  function measureOval(text){
+    const charW = 8.6; // approx px per char at font-size 15 bold
+    const padX = 26;
+    const minRx = 46;
+    const rx = Math.max(minRx, Math.ceil(text.length * charW/2) + padX/2 + 10);
+    const ry = 30;
+    return { rx, ry };
+  }
+
+  // ---------- Fan-out logic for new siblings ----------
+  // When a node gets a new child added, we may already have existing children.
+  // We recompute angles for all children of that parent so they stay within
+  // ±MAX_FAN of parent's own outward angle; if more children than fit the angle
+  // spread comfortably, push extra children to the next ring out.
+  function relayoutChildren(parentId){
+    const parent = nodes[parentId];
+    if (!parent) return;
+    const kids = parent.children.map(id => nodes[id]);
+    if (kids.length === 0) return;
+
+    // Decide max children per ring-tier based on comfortable angular spacing.
+    // Use ~13-16 degrees minimum spacing between siblings at same ring.
+    const minSpacingDeg = 15;
+    const maxFanDeg = 40;
+    const maxPerTier = Math.max(1, Math.floor((2*maxFanDeg)/minSpacingDeg) + 1);
+
+    // group children into tiers (ring offsets) of maxPerTier each, in creation order
+    const tiers = [];
+    for (let i=0;i<kids.length;i+=maxPerTier){
+      tiers.push(kids.slice(i, i+maxPerTier));
+    }
+
+    tiers.forEach((tierKids, tierIdx) => {
+      const ringForTier = parent.ring + 1 + tierIdx; // push further out each tier
+      const n = tierKids.length;
+      const span = (n>1) ? (MAX_FAN*2) : 0;
+      tierKids.forEach((kid, i) => {
+        const t = n === 1 ? 0.5 : i/(n-1);
+        const offset = n === 1 ? 0 : (-MAX_FAN + t*span);
+        kid.angle = parent.angle + offset;
+        kid.ring = ringForTier;
+      });
+    });
+  }
+
+  // Re-run relayout for all existing parents once at init to normalize (in case seed changes)
+  Object.values(nodes).forEach(n => { if (n.children.length) relayoutChildren(n.id); });
+
+  // ---------- SVG rendering ----------
+  const svg = document.getElementById('mindmap');
+  const viewport = document.getElementById('viewport');
+  const edgesG = document.getElementById('edges');
+  const nodesG = document.getElementById('nodes');
+
+  let view = { x:0, y:0, scale:1 };
+
+  function screenCenter(){
+    const rect = svg.getBoundingClientRect();
+    return { w: rect.width, h: rect.height };
+  }
+
+  function applyView(){
+    const {w,h} = screenCenter();
+    viewport.setAttribute('transform',
+      `translate(${w/2 + view.x} ${h/2 + view.y}) scale(${view.scale})`);
+  }
+
+  function resetView(){
+    view = { x:0, y:0, scale: 0.62 };
+    applyView();
+  }
+
+  function render(){
+    edgesG.innerHTML = "";
+    nodesG.innerHTML = "";
+
+    const svgNS = "http://www.w3.org/2000/svg";
+
+    // edges first (so nodes draw above)
+    Object.values(nodes).forEach(n => {
+      if (!n.parentId) return;
+      const parent = nodes[n.parentId];
+      const p1 = nodeXY(parent);
+      const p2 = nodeXY(n);
+      const line = document.createElementNS(svgNS, "path");
+      // slight curve for organic feel
+      const mx = (p1.x+p2.x)/2, my = (p1.y+p2.y)/2;
+      line.setAttribute("d", `M ${p1.x} ${p1.y} Q ${mx} ${my} ${p2.x} ${p2.y}`);
+      line.setAttribute("class", "edge");
+      edgesG.appendChild(line);
+    });
+
+    Object.values(nodes).forEach(n => {
+      const pos = nodeXY(n);
+      const { rx, ry } = measureOval(n.text);
+      n._rx = rx; n._ry = ry; n._x = pos.x; n._y = pos.y;
+      const theme = THEMES[n.color];
+
+      const g = document.createElementNS(svgNS, "g");
+      g.setAttribute("class", "node-group");
+      g.setAttribute("transform", `translate(${pos.x} ${pos.y})`);
+      g.setAttribute("data-id", n.id);
+
+      const ellipse = document.createElementNS(svgNS, "ellipse");
+      ellipse.setAttribute("rx", rx);
+      ellipse.setAttribute("ry", ry);
+      ellipse.setAttribute("class", "node-oval");
+      ellipse.setAttribute("fill", theme.fill);
+      ellipse.setAttribute("stroke", theme.stroke);
+      g.appendChild(ellipse);
+
+      const text = document.createElementNS(svgNS, "text");
+      text.setAttribute("class", "node-text");
+      text.setAttribute("fill", theme.text);
+      text.setAttribute("font-size", n.id === david.id ? "17" : "14.5");
+      text.textContent = n.text;
+      g.appendChild(text);
+
+      g.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openMenu(n.id, e.clientX, e.clientY);
+      });
+      g.addEventListener('touchend', (e) => {
+        // handled via click on most mobile browsers, but guard for stray double fire
+      });
+
+      nodesG.appendChild(g);
+    });
+  }
+
+  // ---------- Pan & zoom ----------
+  let dragging = false, dragStart = {x:0,y:0}, viewStart = {x:0,y:0};
+
+  svg.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.node-group')) return;
+    dragging = true;
+    svg.classList.add('dragging');
+    dragStart = { x: e.clientX, y: e.clientY };
+    viewStart = { x: view.x, y: view.y };
+    svg.setPointerCapture(e.pointerId);
+    closeMenu();
+  });
+  svg.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    view.x = viewStart.x + (e.clientX - dragStart.x);
+    view.y = viewStart.y + (e.clientY - dragStart.y);
+    applyView();
+  });
+  svg.addEventListener('pointerup', (e) => {
+    dragging = false;
+    svg.classList.remove('dragging');
+  });
+  svg.addEventListener('pointercancel', () => { dragging = false; svg.classList.remove('dragging'); });
+
+  svg.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = -e.deltaY * 0.0015;
+    const newScale = Math.min(2.2, Math.max(0.18, view.scale * (1+delta)));
+    view.scale = newScale;
+    applyView();
+  }, { passive:false });
+
+  document.getElementById('zoomIn').addEventListener('click', () => {
+    view.scale = Math.min(2.2, view.scale * 1.2);
+    applyView();
+  });
+  document.getElementById('zoomOut').addEventListener('click', () => {
+    view.scale = Math.max(0.18, view.scale / 1.2);
+    applyView();
+  });
+  document.getElementById('resetView').addEventListener('click', resetView);
+
+  // pinch zoom for touch
+  let pinch = null;
+  svg.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2){
+      const [a,b] = e.touches;
+      pinch = {
+        dist: Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY),
+        scale: view.scale
+      };
+    }
+  }, {passive:true});
+  svg.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2 && pinch){
+      const [a,b] = e.touches;
+      const dist = Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY);
+      const ratio = dist / pinch.dist;
+      view.scale = Math.min(2.2, Math.max(0.18, pinch.scale * ratio));
+      applyView();
+    }
+  }, {passive:true});
+  svg.addEventListener('touchend', (e) => { if (e.touches.length < 2) pinch = null; });
+
+  window.addEventListener('resize', applyView);
+
+  // ---------- Context menu ----------
+  const menu = document.getElementById('menu');
+  const menuTitle = document.getElementById('menuTitle');
+  const menuRename = document.getElementById('menuRename');
+  const menuAdd = document.getElementById('menuAdd');
+  const menuDelete = document.getElementById('menuDelete');
+
+  let activeNodeId = null;
+  const FIXED_IDS = new Set([david.id, ud.id, em.id, logan.id, work.id, wellbeing.id]);
+
+  function openMenu(nodeId, clientX, clientY){
+    activeNodeId = nodeId;
+    const n = nodes[nodeId];
+    menuTitle.textContent = n.text;
+
+    // toggle rename/delete availability for the fixed root set
+    const isFixed = FIXED_IDS.has(nodeId);
+    menuRename.style.display = isFixed && nodeId === david.id ? "none" : "block";
+    menuDelete.style.display = isFixed ? "none" : "block";
+
+    menu.classList.add('open');
+    // position, keeping within viewport
+    const menuW = 180, menuH = 160;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    let left = clientX + 8, top = clientY + 8;
+    if (left + menuW > vw) left = clientX - menuW - 8;
+    if (top + menuH > vh) top = clientY - menuH - 8;
+    menu.style.left = Math.max(8,left) + "px";
+    menu.style.top = Math.max(8,top) + "px";
+  }
+  function closeMenu(){
+    menu.classList.remove('open');
+    activeNodeId = null;
+  }
+  svg.addEventListener('click', (e) => {
+    if (!e.target.closest('.node-group')) closeMenu();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape'){ closeMenu(); closeModal(); }});
+
+  // ---------- Modal (rename / add text input) ----------
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalInput = document.getElementById('modalInput');
+  const modalCancel = document.getElementById('modalCancel');
+  const modalConfirm = document.getElementById('modalConfirm');
+
+  let modalMode = null; // 'rename' | 'add'
+
+  function openModal(mode){
+    modalMode = mode;
+    modalTitle.textContent = mode === 'rename' ? 'Rename node' : 'Add node';
+    modalInput.value = mode === 'rename' ? nodes[activeNodeId].text : '';
+    modalOverlay.classList.add('open');
+    setTimeout(() => { modalInput.focus(); modalInput.select(); }, 30);
+  }
+  function closeModal(){
+    modalOverlay.classList.remove('open');
+    modalMode = null;
+  }
+  modalCancel.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+  modalInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') modalConfirm.click(); });
+
+  modalConfirm.addEventListener('click', () => {
+    const val = modalInput.value.trim();
+    if (!val) { closeModal(); return; }
+
+    if (modalMode === 'rename'){
+      nodes[activeNodeId].text = val.toUpperCase();
+    } else if (modalMode === 'add'){
+      const parent = nodes[activeNodeId];
+      const child = addNode({
+        text: val,
+        color: parent.color,
+        angle: parent.angle, // will be recalculated by relayout
+        ring: parent.ring + 1,
+        parentId: parent.id
+      });
+      relayoutChildren(parent.id);
+    }
+    closeModal();
+    render();
+  });
+
+  menuRename.addEventListener('click', () => { closeMenu(); openModal('rename'); });
+  menuAdd.addEventListener('click', () => { closeMenu(); openModal('add'); });
+  menuDelete.addEventListener('click', () => {
+    const id = activeNodeId;
+    closeMenu();
+    if (!id || FIXED_IDS.has(id)) return;
+    deleteSubtree(id);
+    render();
+  });
+
+  function deleteSubtree(id){
+    const n = nodes[id];
+    if (!n) return;
+    // recursively delete children first
+    [...n.children].forEach(cid => deleteSubtree(cid));
+    if (n.parentId && nodes[n.parentId]){
+      nodes[n.parentId].children = nodes[n.parentId].children.filter(c => c !== id);
+    }
+    delete nodes[id];
+  }
+
+  // ---------- init ----------
+  render();
+  resetView();
+})();
+</script>
+
+</body>
+</html>
