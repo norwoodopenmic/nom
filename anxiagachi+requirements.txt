@@ -7,3 +7,5 @@ The anxiety score will be initialized on page load by retrieving the value from 
 if the anxiety score is under 100 then the character should be represented as happy.png
 There is a button that can be pressed that says “take 40mg propranolol”, doing this will reduce the anxiety score by 50 points
 There is a button can be pressed that says “dunk head in ice water’ doing this will reduce the anxiety by 50 points
+There is a button that can be pressed that says "hum" doing this will reduce anxiety by 25 points
+there is a button that can be pressed that says "listen to music with airpods" this will reduce anxiety by 75 points
