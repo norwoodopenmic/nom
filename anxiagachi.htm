@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anxiagachi</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --panel: #16213e;
+    --accent: #e94560;
+    --calm: #4ecca3;
+    --text: #f1f1f1;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: var(--text);
+    padding: 24px;
+  }
+  h1 {
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    opacity: 0.6;
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+  .panel {
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 28px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+  .character-frame {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 16px;
+    border-radius: 16px;
+    background: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 3px solid #2c3a5e;
+    transition: border-color 0.3s ease;
+  }
+  .character-frame.unhappy { border-color: var(--accent); }
+  .character-frame.happy { border-color: var(--calm); }
+  .character-frame img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .score-wrap {
+    margin-bottom: 20px;
+  }
+  .score-label {
+    font-size: 13px;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .score-value {
+    font-size: 42px;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+  .score-value.high { color: var(--accent); }
+  .score-value.low { color: var(--calm); }
+  .status-tag {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 13px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+  }
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  button {
+    background: #0f3460;
+    color: var(--text);
+    border: none;
+    border-radius: 10px;
+    padding: 14px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.1s ease, background 0.2s ease;
+  }
+  button:hover {
+    background: #1a4a7a;
+  }
+  button:active {
+    transform: scale(0.96);
+  }
+  .relief-amount {
+    display: block;
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+  .reset-btn {
+    margin-top: 18px;
+    background: transparent;
+    border: 1px solid #444;
+    font-size: 12px;
+    opacity: 0.6;
+    width: 100%;
+  }
+  .reset-btn:hover {
+    background: rgba(255,255,255,0.05);
+  }
+</style>
+</head>
+<body>
+
+  <h1>Anxiagachi</h1>
+  <p class="subtitle">keep him under 100</p>
+
+  <div class="panel">
+    <div class="character-frame" id="characterFrame">
+      <img id="characterImg" src="happy.png" alt="Anxiagachi character">
+    </div>
+
+    <div class="score-wrap">
+      <div class="score-label">Anxiety Score</div>
+      <div class="score-value" id="scoreValue">200</div>
+      <div class="status-tag" id="statusTag">Unhappy</div>
+    </div>
+
+    <div class="buttons">
+      <button onclick="reduceAnxiety(50)">
+        Take 40mg Propranolol
+        <span class="relief-amount">-50</span>
+      </button>
+      <button onclick="reduceAnxiety(50)">
+        Dunk Head in Ice Water
+        <span class="relief-amount">-50</span>
+      </button>
+      <button onclick="reduceAnxiety(25)">
+        Hum
+        <span class="relief-amount">-25</span>
+      </button>
+      <button onclick="reduceAnxiety(75)">
+        Listen to Music with AirPods
+        <span class="relief-amount">-75</span>
+      </button>
+      <button onclick="reduceAnxiety(25)">
+        Trim the Bushes
+        <span class="relief-amount">-25</span>
+      </button>
+    </div>
+
+    <button class="reset-btn" onclick="resetAnxiety()">Reset to 200</button>
+  </div>
+
+<script>
+  // ---------------------------------------------------------------
+  // Persistence layer
+  // ---------------------------------------------------------------
+  // NOTE: This environment (Claude.ai artifacts) does not support
+  // window.localStorage, so we simulate "persistence" with an
+  // in-memory JS variable that is (re)initialized to 200 on every
+  // page load, per the spec ("on page load the value is 200").
+  //
+  // If you run this file on your own server/browser outside of
+  // Claude.ai, you can swap in real localStorage persistence by
+  // replacing the two functions below with:
+  //
+  //   function getStoredAnxiety() {
+  //     const stored = localStorage.getItem('anxietyScore');
+  //     return stored === null ? 200 : parseInt(stored, 10);
+  //   }
+  //   function setStoredAnxiety(value) {
+  //     localStorage.setItem('anxietyScore', value);
+  //   }
+  // ---------------------------------------------------------------
+
+  let memoryStore = { anxietyScore: 200 };
+
+  function getStoredAnxiety() {
+    return memoryStore.anxietyScore;
+  }
+
+  function setStoredAnxiety(value) {
+    memoryStore.anxietyScore = value;
+  }
+
+  // ---------------------------------------------------------------
+  // Game state
+  // ---------------------------------------------------------------
+  let anxietyScore = getStoredAnxiety();
+
+  const scoreValueEl = document.getElementById('scoreValue');
+  const statusTagEl = document.getElementById('statusTag');
+  const characterImgEl = document.getElementById('characterImg');
+  const characterFrameEl = document.getElementById('characterFrame');
+
+  function updateDisplay() {
+    scoreValueEl.textContent = anxietyScore;
+
+    if (anxietyScore > 100) {
+      characterImgEl.src = 'unhappy.png';
+      characterFrameEl.classList.remove('happy');
+      characterFrameEl.classList.add('unhappy');
+      scoreValueEl.classList.remove('low');
+      scoreValueEl.classList.add('high');
+      statusTagEl.textContent = 'Unhappy';
+    } else {
+      characterImgEl.src = 'happy.png';
+      characterFrameEl.classList.remove('unhappy');
+      characterFrameEl.classList.add('happy');
+      scoreValueEl.classList.remove('high');
+      scoreValueEl.classList.add('low');
+      statusTagEl.textContent = 'Happy';
+    }
+  }
+
+  function reduceAnxiety(amount) {
+    anxietyScore = Math.max(0, anxietyScore - amount);
+    setStoredAnxiety(anxietyScore);
+    updateDisplay();
+  }
+
+  function resetAnxiety() {
+    anxietyScore = 200;
+    setStoredAnxiety(anxietyScore);
+    updateDisplay();
+  }
+
+  // Initial render on page load
+  updateDisplay();
+</script>
+
+</body>
+</html>
