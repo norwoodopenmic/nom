@@ -11,3 +11,4 @@ There is a button that can be pressed that says "hum" doing this will reduce anx
 there is a button that can be pressed that says "listen to music with airpods" this will reduce anxiety by 75 points
 There is a button that can be pressed that says "trim the bushes" this will reduce anxiety by 25 points
 the anxiety score will be displayed
+create this all in html and javascript
