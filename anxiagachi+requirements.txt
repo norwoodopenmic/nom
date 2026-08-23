@@ -1,0 +1,9 @@
+The title of this game is called Anxiagachi
+There is one character and he is displayed at all times, the character is an anxiagachi
+I will provide two drawings as local .png files, one file will be named happy.png and the other will be called unhappy.png
+The character will have an anxiety score that will persist in https://keyvalue.immanuel.co/api/KeyVal
+If the anxiety score is over 100 then the character should be represented as unhappy.png
+The anxiety score will be initialized on page load by retrieving the value from https://keyvalue.immanuel.co/api/KeyVal 
+if the anxiety score is under 100 then the character should be represented as happy.png
+There is a button that can be pressed that says “take 40mg propranolol”, doing this will reduce the anxiety score by 50 points
+There is a button can be pressed that says “dunk head in ice water’ doing this will reduce the anxiety by 50 points
