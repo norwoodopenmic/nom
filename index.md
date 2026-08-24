@@ -8,7 +8,7 @@ SideDoor Cafe - September 2026
 
 The Norwood Open Mic (NOM) will be an opportunity for people to share a story,  poem, song or whatever they want to perform in a radically supportive environment.  
 
-The goal of this open mic is to create connections. 
+The goal of this open mic is to foster connection. 
 
 If you have a moment please fill out this survey to let me know if you are interested in this event. 
 
