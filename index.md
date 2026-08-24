@@ -16,7 +16,7 @@ If you have a moment please fill out this survey to let me know if you are inter
 
 [David's Joke Time](https://norwoodopenmic.github.io/nom/davidsjoke.htm)  
 [David's Burn Bucket](https://norwoodopenmic.github.io/nom/davidsburnbucket.htm)  
-[David's Anxigachi](https://norwoodopenmic.github.io/nom/anxiagachi.htm)
+[David's Anxiagachi](https://norwoodopenmic.github.io/nom/anxiagachi.htm)
 
 A poem by open mic organizer - David Solomon
 
