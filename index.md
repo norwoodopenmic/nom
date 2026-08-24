@@ -10,6 +10,8 @@ The Norwood Open Mic (NOM) will be an opportunity for people to share a story,  
 
 The goal of this open mic is to foster connection. 
 
+**Survey**  
+
 If you have a moment please fill out this survey to let me know if you are interested in this event. 
 
 [Norwood Open Mic Survey](https://forms.gle/63cZsS2po7J7TBBN9)
