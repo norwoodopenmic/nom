@@ -21,8 +21,7 @@ If you have a moment please fill out this survey to let me know if you are inter
 
 
 
-**Oh How Disappointed A Soul Must Be**
-
+**Oh How Disappointed A Soul Must Be**  
 can a soul be disappointed? - a soul cant “feel” excited - a soul cant “feel” profound sadness - a soul “cant” feel anything - a soul wants a body in order to experience what it means to “feel” - a soul says the human experience looks more fun than just hanging out doing nothing - without hormones and chemicals neither the body nor the soul can “feel” anything at all
 
 i fight to stay present in body - it is so easy to leave - to lose myself doing the dishes - to lose myself in writing a computer programs - to lose myself in literally any task I set myself upon - when i lose touch with my body… - when i am no longer present in the moment… - when i forget to smell - when i forget to see - when i forget to notice the people right in front of me… - oh how disappointed my soul must be
