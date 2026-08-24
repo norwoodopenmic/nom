@@ -6,7 +6,7 @@ SideDoor Cafe - September 2026
 
 “You can’t have connection without vulnerability”
 
-The Norwood Open Mic (NOM) will be an opportunity for people to share a story,  poem or song in a radically supportive environment.  
+The Norwood Open Mic (NOM) will be an opportunity for people to share a story,  poem, song or whatever they want to perform in a radically supportive environment.  
 
 The goal of this open mic is to create connections. 
 
