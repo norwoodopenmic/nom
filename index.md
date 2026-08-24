@@ -14,6 +14,8 @@ If you have a moment please fill out this survey to let me know if you are inter
 
 [Norwood Open Mic Survey](https://forms.gle/63cZsS2po7J7TBBN9)
 
+[David's Joke Time](https://norwoodopenmic.github.io/nom/davidsjoke.htm)
+
 A poem by open mic organizer - David Solomon
 
 Oh How Disappointed A Soul Must Be
