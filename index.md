@@ -2,7 +2,7 @@
 
 ![Norwood Open Mic Gravatar](https://www.gravatar.com/avatar/adcda19cd81818cf19d8e45caa96682b)
 
-<b>Norwood Open Mic - SideDoor Cafe</b>
+**Norwood Open Mic - SideDoor Cafe**
   
 “You can’t have connection without vulnerability”
 
