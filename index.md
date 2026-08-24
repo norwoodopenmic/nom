@@ -2,7 +2,7 @@
 
 ![Norwood Open Mic Gravatar](https://www.gravatar.com/avatar/adcda19cd81818cf19d8e45caa96682b)
 
-**Norwood Open Mic - SideDoor Cafe - September 2026**
+**Norwood Open Mic - SideDoor Cafe - September 2026**  
 “You can’t have connection without vulnerability”
 
 The Norwood Open Mic (NOM) will be an opportunity for people to share a story,  poem, song or whatever they want to perform in a radically supportive environment.  
