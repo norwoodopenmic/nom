@@ -2,7 +2,7 @@
 
 ![Norwood Open Mic Gravatar](https://www.gravatar.com/avatar/adcda19cd81818cf19d8e45caa96682b)
 
-SideDoor Cafe - September 2026
+**SideDoor Cafe - September 2026**
 
 “You can’t have connection without vulnerability”
 
@@ -14,14 +14,14 @@ If you have a moment please fill out this survey to let me know if you are inter
 
 [Norwood Open Mic Survey](https://forms.gle/63cZsS2po7J7TBBN9)
 
-Fun Interactive Things  
+**Fun Interactive Things**  
 [David's Joke Time](https://norwoodopenmic.github.io/nom/davidsjoke.htm)  
 [David's Burn Bucket](https://norwoodopenmic.github.io/nom/davidsburnbucket.htm)  
 [David's Anxiagachi](https://norwoodopenmic.github.io/nom/anxiagachi.htm)
 
 A poem by open mic organizer - David Solomon
 
-Oh How Disappointed A Soul Must Be
+**Oh How Disappointed A Soul Must Be**
 
 can a soul be disappointed? - a soul cant “feel” excited - a soul cant “feel” profound sadness - a soul “cant” feel anything - a soul wants a body in order to experience what it means to “feel” - a soul says the human experience looks more fun than just hanging out doing nothing - without hormones and chemicals neither the body nor the soul can “feel” anything at all
 
