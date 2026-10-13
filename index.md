@@ -4,7 +4,7 @@
 
 **Norwood Open Mic - SideDoor Cafe**
   
-“You can’t have connection without vulnerability”
+You can’t have connection without vulnerability.
 
 The Norwood Open Mic (NOM) will be an opportunity for people to share a story,  poem, song or whatever they want to perform in a radically supportive environment.  
 
